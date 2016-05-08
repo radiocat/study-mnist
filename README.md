@@ -1,2 +1,5 @@
-# study-mnist
-MNISTを使ったMLの勉強
+# study-tf
+TensorFlowを使ったMLの勉強
+
+
+
