@@ -15,10 +15,12 @@ x = tf.placeholder(tf.float32, shape=(None, 3), name="x")
 # 教師データは1なら進む、0は止まれ
 y_ = tf.placeholder(tf.float32, shape=(None, 1), name="y")
 # モデルパラメータ
-a = tf.Variable(-10 * tf.ones((3, 1)), name="a")
-b = tf.Variable(200., name="b")
+# 重み
+W = tf.Variable(tf.zeros([3, 1]), name="W")
+# バイアス
+b = tf.Variable(tf.zeros([1]), name="b")
 # モデル式
-u = tf.matmul(x, a) + b
+u = tf.matmul(x, W) + b
 y = tf.sigmoid(u)
 
 # 2. 学習やテストに必要な関数を定義する
@@ -43,13 +45,13 @@ sess.run(init)
 
 # (3) 最急勾配法でパラメータ更新 (1000回更新する) 
 for i in range(3000): 
-    _, l, a_, b_ = sess.run([train_step, loss, a, b], feed_dict={x: train_x, y_: train_y})
+    _, l, W_, b_ = sess.run([train_step, loss, W, b], feed_dict={x: train_x, y_: train_y})
     if (i + 1) % 100 == 0:
-        print("step=%3d, a1=%6.2f, a2=%6.2f, b=%6.2f, loss=%.2f" % (i + 1, a_[0], a_[1], b_, l))
+        print("step=%3d, W1=%6.2f, W2=%6.2f, W3=%6.2f, b=%6.2f, loss=%.2f" % (i + 1, W_[0], W_[1], W_[2], b_, l))
 
 # (4) 学習結果を出力
-est_a, est_b = sess.run([a, b], feed_dict={x: train_x, y_: train_y})
-print("Estimated: a1=%6.2f, a2=%6.2f, b=%6.2f" % (est_a[0], est_a[1], est_b))
+est_W, est_b = sess.run([W, b], feed_dict={x: train_x, y_: train_y})
+print("Estimated: W1=%6.2f, W2=%6.2f, W3=%6.2f, b=%6.2f" % (est_W[0], est_W[1], est_W[2], est_b))
 
 # 4. 新しいデータに対して予測する
 # (1) 新しいデータを用意
