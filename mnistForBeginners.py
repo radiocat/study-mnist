@@ -1,4 +1,6 @@
 #coding: UTF-8
+# MNIST For ML Beginnersの演習
+# https://www.tensorflow.org/versions/master/tutorials/mnist/beginners/index.html
 # あらかじめgithubからinput_data.pyや関連ファイルを取得しておく
 # https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/tutorials/mnist
 import input_data
