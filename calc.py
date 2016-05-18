@@ -1,0 +1,15 @@
+import tensorflow as tf
+import multiprocessing as mp
+ 
+core_num = mp.cpu_count()
+config = tf.ConfigProto(
+     inter_op_parallelism_threads=core_num,
+         intra_op_parallelism_threads=core_num )
+
+sess = tf.Session(config=config)
+  
+a = tf.constant(10)
+b = tf.constant(30)
+c = a * b
+print sess.run(c)
+ 
